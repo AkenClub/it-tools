@@ -1,0 +1,1 @@
+import{m as a}from"./merge-53ce9f8a.js";function f(t,e){if(!t.includes("."))return{[t]:e};const c=e,n={},r=Array.from(t.matchAll(/[^.]+/g),([o])=>o);let s=n,_=0;for(const o of r){const u=o.replace(/_____dot_____/g,"."),i=_++===r.length-1?c:{};s[u]=i,s=i}return n}function p(t){return Object.entries(t).reduce((e,[c,n])=>{const r=f(c,n);return a(e,r)},{})}export{p as n};

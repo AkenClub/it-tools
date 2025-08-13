@@ -1,0 +1,1 @@
+import{be as b}from"./index-8a14065c.js";function d(n){var e=n==null?0:n.length;return e?n[e-1]:void 0}function g(n,e){return n<e}function m(n,e,f){for(var i=-1,o=n.length;++i<o;){var t=n[i],l=e(t);if(l!=null&&(s===void 0?l===l&&!b(l):f(l,s)))var s=l,a=t}return a}export{g as a,m as b,d as l};
