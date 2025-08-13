@@ -1,0 +1,42 @@
+# .github/workflows/build-and-deploy.yml
+name: Build and Deploy
+
+on:
+  push:
+    branches: ["chore/all-my-stuffs"]
+  workflow_dispatch:
+
+permissions:
+  contents: write # 需要 write 权限来推送部署分支
+
+jobs:
+  build-and-push-to-deploy-branch:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出源码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. 安装环境
+      - name: Install Node.js & pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
+
+      # 3. 构建项目
+      - name: Build
+        run: |
+          BASE_URL="/" pnpm build
+          # 如果需要，可以创建 404 页面
+          cp dist/index.html dist/404.html
+
+      # 4. 使用专用 Action 将 dist 目录推送到部署分支（例如 gh-pages）
+      # 这个 Action 会处理好所有 git 操作，并使用 force-push 保持分支干净
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # publish_branch: gh-pages # 要推送到的分支，默认为 gh-pages
+          # cname: example.com # 如果需要自定义域名
