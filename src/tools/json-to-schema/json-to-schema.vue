@@ -17,7 +17,7 @@ const formats = [
   { value: 'clickhouse', label: t('tools.json-to-schema.texts.label-clickhouse-table-schema') },
 ];
 
-const tableName = ref('TableName');
+const tableName = useQueryParamOrStorage({ name: 'table', storageName: 'json-to-schema:tbl', defaultValue: 'TableName' });
 const format = useQueryParamOrStorage({ name: 'fmt', storageName: 'json-to-schema:fmt', defaultValue: 'json' });
 
 function convertJsonToSchema(value: string) {
@@ -78,9 +78,9 @@ const rules: UseValidationRule<string>[] = [
     <n-divider />
 
     <format-transformer
-      :input-label="t('tools.json-to-schema.texts.input-label-your-json')"
-      :input-placeholder="t('tools.json-to-schema.texts.input-placeholder-paste-your-json-here')"
-      :output-label="t('tools.json-to-schema.texts.output-label-your-schema')"
+      :input-:label="t('tools.json-to-schema.texts.label-t-tools-json-to-schema-texts-input-label-your-json')"
+      :input-:placeholder="t('tools.json-to-schema.texts.placeholder-t-tools-json-to-schema-texts-input-placeholder-paste-your-json-here')"
+      :output-:label="t('tools.json-to-schema.texts.label-t-tools-json-to-schema-texts-output-label-your-schema')"
       :output-language="schemaLanguage"
       :input-validation-rules="rules"
       :transformer="transformer"

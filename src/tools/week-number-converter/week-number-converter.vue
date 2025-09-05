@@ -2,12 +2,22 @@
 import { useI18n } from 'vue-i18n';
 import { getISOWeek, getWeek, getWeekOfMonth } from 'date-fns';
 import { getFirstMondayFromISOWeek, getFirstMondayFromMonthWeek } from './week-number-converter.service';
+import { useQueryParam } from '@/composable/queryParams';
+import { withDefaultOnError } from '@/utils/defaults';
 
 const { t } = useI18n();
 
 const now = new Date();
 
-const inputDate = ref(now.getTime());
+function toISODateString(d: Date) {
+  return d.toISOString().substring(0, 10);
+}
+
+const inputDateString = useQueryParam({ tool: 'week-num-conv', name: 'date', defaultValue: toISODateString(now) });
+const inputDate = computed({
+  get() { return withDefaultOnError(() => new Date(inputDateString.value).getTime(), now.getTime()); },
+  set(newDate) { inputDateString.value = toISODateString(new Date(newDate)); },
+});
 const outputWeekInMonth = computed(() => getWeekOfMonth(inputDate.value));
 const outputLocalWeekInYear = computed(() => getWeek(inputDate.value));
 const outputISOWeekInYear = computed(() => getISOWeek(inputDate.value));
@@ -42,10 +52,10 @@ const outputWeekInYearMonday = computed(() => getFirstMondayFromISOWeek(inputWee
     <c-card :title="t('tools.week-number-converter.texts.title-iso-week-number-to-date')" mb-2>
       <div flex items-baseline gap-2>
         <n-form-item :label="t('tools.week-number-converter.texts.label-iso-week-number')" label-placement="left" flex-1>
-          <n-input-number v-model:value="inputWeekInYear.week" :min="1" :max="53" />
+          <n-input-number-i18n v-model:value="inputWeekInYear.week" :min="1" :max="53" />
         </n-form-item>
         <n-form-item :label="t('tools.week-number-converter.texts.label-year')" label-placement="left" flex-1>
-          <n-input-number v-model:value="inputWeekInYear.year" />
+          <n-input-number-i18n v-model:value="inputWeekInYear.year" />
         </n-form-item>
       </div>
 
@@ -56,13 +66,13 @@ const outputWeekInYearMonday = computed(() => getFirstMondayFromISOWeek(inputWee
     <c-card :title="t('tools.week-number-converter.texts.title-week-number-in-month-to-date')" mb-2>
       <div flex items-baseline gap-2>
         <n-form-item :label="t('tools.week-number-converter.texts.label-week-in-month')" label-placement="left" flex-1>
-          <n-input-number v-model:value="inputWeekInMonth.week" :min="1" :max="5" />
+          <n-input-number-i18n v-model:value="inputWeekInMonth.week" :min="1" :max="5" />
         </n-form-item>
         <n-form-item :label="t('tools.week-number-converter.texts.label-month')" label-placement="left" flex-1>
-          <n-input-number v-model:value="inputWeekInMonth.month" :min="1" :max="12" />
+          <n-input-number-i18n v-model:value="inputWeekInMonth.month" :min="1" :max="12" />
         </n-form-item>
         <n-form-item :label="t('tools.week-number-converter.texts.label-year')" label-placement="left" flex-1>
-          <n-input-number v-model:value="inputWeekInMonth.year" />
+          <n-input-number-i18n v-model:value="inputWeekInMonth.year" />
         </n-form-item>
       </div>
 

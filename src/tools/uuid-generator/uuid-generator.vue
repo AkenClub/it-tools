@@ -5,13 +5,14 @@ import { v1 as generateUuidV1, v3 as generateUuidV3, v4 as generateUuidV4, v5 as
 import { useCopy } from '@/composable/copy';
 import { computedRefreshable } from '@/composable/computedRefreshable';
 import { withDefaultOnError } from '@/utils/defaults';
+import { useQueryParamOrStorage } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
 const versions = ['NIL', 'v1', 'v3', 'v4', 'v5', 'v6', 'v7'] as const;
 
-const version = useStorage<typeof versions[number]>('uuid-generator:version', 'v4');
-const count = useStorage('uuid-generator:quantity', 1);
+const version = useQueryParamOrStorage<typeof versions[number]>({ name: 'version', storageName: 'uuid-generator:version', defaultValue: 'v4' });
+const count = useQueryParamOrStorage({ name: 'amount', storageName: 'uuid-generator:quantity', defaultValue: 1 });
 const v35Args = ref({ namespace: '6ba7b811-9dad-11d1-80b4-00c04fd430c8', name: '' });
 
 const validUuidRules = [
@@ -57,7 +58,7 @@ const { copy } = useCopy({ source: uuids, text: t('tools.uuid-generator.texts.te
 
     <div mb-2 flex items-center>
       <span w-100px>{{ t('tools.uuid-generator.texts.tag-quantity') }}</span>
-      <n-input-number v-model:value="count" flex-1 :min="1" :max="50" :placeholder="t('tools.uuid-generator.texts.placeholder-uuid-quantity')" />
+      <n-input-number-i18n v-model:value="count" flex-1 :min="1" :max="50" :placeholder="t('tools.uuid-generator.texts.placeholder-uuid-quantity')" />
     </div>
 
     <div v-if="version === 'v3' || version === 'v5'">

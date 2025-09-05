@@ -3,11 +3,12 @@ import { useI18n } from 'vue-i18n';
 import { ImageToAsciiArt } from 'image-to-ascii-art';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 import { languages, printToLanguage } from '@/utils/ascii-lang-utils';
+import { useITStorage } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
 const inputBase64 = ref('');
-const language = useStorage('image-to-ascii-art:language', 'raw');
+const language = useITStorage('image-to-ascii-art:language', 'raw');
 const scale = ref(100);
 const errored = ref(false);
 const processing = ref(false);
@@ -72,7 +73,7 @@ async function onFileUploaded(uploadedFile: File) {
 
     <n-form-item :label="t('tools.image-to-ascii-art.texts.label-output-scale')" label-placement="left" mt-2>
       <n-slider v-model:value="scale" :step="1" :min="1" :max="100" mr-2 />
-      <n-input-number v-model:value="scale" size="small" :min="1" :max="100" />
+      <n-input-number-i18n v-model:value="scale" size="small" :min="1" :max="100" />
     </n-form-item>
 
     <c-select v-model:value="language" :options="languagesOptions" searchable mt-3 />

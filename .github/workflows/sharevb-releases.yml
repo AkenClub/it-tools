@@ -1,5 +1,8 @@
 name: Release new versions
 
+env:
+  VITE_VERCEL_ENV: production
+
 on:
   push:
     tags:
@@ -81,7 +84,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
 
       - name: Install dependencies

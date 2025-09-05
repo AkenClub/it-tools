@@ -2,13 +2,14 @@
 import { useI18n } from 'vue-i18n';
 import { useObfuscateString } from './string-obfuscator.model';
 import { useCopy } from '@/composable/copy';
+import { useQueryParam } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
-const str = ref('Lorem ipsum dolor sit amet');
-const keepFirst = ref(4);
-const keepLast = ref(4);
-const keepSpace = ref(true);
+const str = useQueryParam({ tool: 'string-obfuscator', name: 'text', defaultValue: 'Lorem ipsum dolor sit amet' });
+const keepFirst = useQueryParam({ tool: 'string-obfuscator', name: 'first', defaultValue: 4 });
+const keepLast = useQueryParam({ tool: 'string-obfuscator', name: 'last', defaultValue: 4 });
+const keepSpace = useQueryParam({ tool: 'string-obfuscator', name: 'space', defaultValue: true });
 
 const obfuscatedString = useObfuscateString(str, { keepFirst, keepLast, keepSpace });
 const { copy } = useCopy({ source: obfuscatedString });
@@ -21,12 +22,12 @@ const { copy } = useCopy({ source: obfuscatedString });
     <div mt-4 flex gap-10px>
       <div>
         <div>{{ t('tools.string-obfuscator.texts.tag-keep-first') }}</div>
-        <n-input-number v-model:value="keepFirst" min="0" />
+        <n-input-number-i18n v-model:value="keepFirst" min="0" />
       </div>
 
       <div>
         <div>{{ t('tools.string-obfuscator.texts.tag-keep-last') }}</div>
-        <n-input-number v-model:value="keepLast" min="0" />
+        <n-input-number-i18n v-model:value="keepLast" min="0" />
       </div>
 
       <div>

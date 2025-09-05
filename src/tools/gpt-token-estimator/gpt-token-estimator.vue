@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { GPTTokens } from 'gpt-tokens';
 import JSON5 from 'json5';
-import type { supportModelType } from 'gpt-tokens';
-import TextareaCopyable from '@/components/TextareaCopyable.vue';
+import type { TiktokenModel } from 'js-tiktoken';
+import { GPTTokens } from './gpt-tokens.service';
 import { useValidation } from '@/composable/validation';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
@@ -60,21 +59,19 @@ const outputTokenCosts = computed(() => {
       return {
         error: '',
         usedTokens: '0',
-        usedUSD: '0',
         promptUsedTokens: '0',
         completionUsedTokens: '0',
       };
     }
 
     const tokens = new GPTTokens({
-      model: model.value as supportModelType,
+      model: model.value as TiktokenModel,
       messages: messagesArray,
       tools: toolsArray,
     });
     return {
       error: '',
       usedTokens: tokens.usedTokens.toString(),
-      usedUSD: tokens.usedUSD.toString(),
       promptUsedTokens: tokens.promptUsedTokens.toString(),
       completionUsedTokens: tokens.completionUsedTokens.toString(),
     };
@@ -83,7 +80,6 @@ const outputTokenCosts = computed(() => {
     return {
       error: e.toString(),
       usedTokens: '',
-      usedUSD: '',
       promptUsedTokens: '',
       completionUsedTokens: '',
     };
@@ -156,18 +152,21 @@ const outputTokenCosts = computed(() => {
     </c-alert>
 
     <div v-if="!outputTokenCosts.error">
-      <n-form-item :label="t('tools.gpt-token-estimator.texts.label-used-tokens')">
-        <TextareaCopyable :value="outputTokenCosts.usedTokens" />
+      <n-form-item :label="t('tools.gpt-token-estimator.texts.label-used-tokens')" label-placement="left">
+        <InputCopyable :value="outputTokenCosts.usedTokens" />
       </n-form-item>
-      <n-form-item :label="t('tools.gpt-token-estimator.texts.label-prompt-tokens')">
-        <TextareaCopyable :value="outputTokenCosts.promptUsedTokens" />
+      <n-form-item :label="t('tools.gpt-token-estimator.texts.label-prompt-tokens')" label-placement="left">
+        <InputCopyable :value="outputTokenCosts.promptUsedTokens" />
       </n-form-item>
-      <n-form-item :label="t('tools.gpt-token-estimator.texts.label-completion-tokens')">
-        <TextareaCopyable :value="outputTokenCosts.completionUsedTokens" />
+      <n-form-item :label="t('tools.gpt-token-estimator.texts.label-completion-tokens')" label-placement="left">
+        <InputCopyable :value="outputTokenCosts.completionUsedTokens" />
       </n-form-item>
-      <n-form-item :label="t('tools.gpt-token-estimator.texts.label-used-usd')">
-        <TextareaCopyable :value="outputTokenCosts.usedUSD" />
-      </n-form-item>
+
+      <n-p mt-3>
+        <n-a href="https://platform.openai.com/docs/pricing" target="_blank">
+          {{ t('tools.gpt-token-estimator.texts.tag-see-openapi-pricings') }}
+        </n-a>
+      </n-p>
     </div>
   </div>
 </template>

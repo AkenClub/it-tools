@@ -4,18 +4,19 @@ import composerize from 'composerize';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
 import { textToBase64 } from '@/utils/base64';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
+import { useQueryParamOrStorage } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
 const dockerRuns = ref(
   'docker run -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro --restart always --log-opt max-size=1g nginx',
 );
-const indentSize = useStorage('docker-run-to-compose:indent-size', 4);
+const indentSize = useQueryParamOrStorage({ name: 'indent', storageName: 'docker-run-to-compose:indent-size', defaultValue: 4 });
 
 const existingDockerComposeFile = ref(
   '',
 );
-const format = useStorage('docker-run-to-compose:format', 'latest');
+const format = useQueryParamOrStorage({ name: 'fmt', storageName: 'docker-run-to-compose:format', defaultValue: 'latest' });
 const formatOptions = [
   { value: 'v2x', label: t('tools.docker-run-to-docker-compose-converter.texts.label-v2-2-x') },
   { value: 'v3x', label: t('tools.docker-run-to-docker-compose-converter.texts.label-v2-3-x') },
@@ -85,7 +86,7 @@ const MONACO_EDITOR_OPTIONS = {
       </n-gi>
       <n-gi span="2">
         <n-form-item :label="t('tools.docker-run-to-docker-compose-converter.texts.label-indent-size')" label-placement="top" label-width="100" :show-feedback="false">
-          <n-input-number v-model:value="indentSize" min="0" max="10" w-100px />
+          <n-input-number-i18n v-model:value="indentSize" min="0" max="10" w-100px />
         </n-form-item>
       </n-gi>
     </n-grid>

@@ -4,16 +4,17 @@ import TextareaCopyable from '@/components/TextareaCopyable.vue';
 import { useCopy } from '@/composable/copy';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
 import { textToBase64 } from '@/utils/base64';
+import { useQueryParam } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
-const width = ref(600);
-const height = ref(350);
-const fontSize = ref(26);
-const bgColor = ref('#cccccc');
-const fgColor = ref('#333333');
-const useExactSize = ref(true);
-const customText = ref('');
+const width = useQueryParam({ tool: 'svg-placeholder-gen', name: 'w', defaultValue: 600 });
+const height = useQueryParam({ tool: 'svg-placeholder-gen', name: 'h', defaultValue: 350 });
+const fontSize = useQueryParam({ tool: 'svg-placeholder-gen', name: 'fs', defaultValue: 26 });
+const bgColor = useQueryParam({ tool: 'svg-placeholder-gen', name: 'bg', defaultValue: '#cccccc' });
+const fgColor = useQueryParam({ tool: 'svg-placeholder-gen', name: 'fg', defaultValue: '#333333' });
+const useExactSize = useQueryParam({ tool: 'svg-placeholder-gen', name: 'exact', defaultValue: true });
+const customText = useQueryParam({ tool: 'svg-placeholder-gen', name: 'text', defaultValue: '' });
 const svgString = computed(() => {
   const w = width.value;
   const h = height.value;
@@ -39,7 +40,7 @@ const { download } = useDownloadFileFromBase64({ source: base64 });
     <n-form label-placement="left" label-width="100">
       <div flex gap-3>
         <n-form-item :label="t('tools.svg-placeholder-generator.texts.label-width-in-px')" flex-1>
-          <n-input-number v-model:value="width" :placeholder="t('tools.svg-placeholder-generator.texts.placeholder-svg-width')" min="1" />
+          <n-input-number-i18n v-model:value="width" :placeholder="t('tools.svg-placeholder-generator.texts.placeholder-svg-width')" min="1" />
         </n-form-item>
         <n-form-item :label="t('tools.svg-placeholder-generator.texts.label-background')" flex-1>
           <n-color-picker v-model:value="bgColor" :modes="['hex']" />
@@ -47,7 +48,7 @@ const { download } = useDownloadFileFromBase64({ source: base64 });
       </div>
       <div flex gap-3>
         <n-form-item :label="t('tools.svg-placeholder-generator.texts.label-height-in-px')" flex-1>
-          <n-input-number v-model:value="height" :placeholder="t('tools.svg-placeholder-generator.texts.placeholder-svg-height')" min="1" />
+          <n-input-number-i18n v-model:value="height" :placeholder="t('tools.svg-placeholder-generator.texts.placeholder-svg-height')" min="1" />
         </n-form-item>
         <n-form-item :label="t('tools.svg-placeholder-generator.texts.label-text-color')" flex-1>
           <n-color-picker v-model:value="fgColor" :modes="['hex']" />
@@ -55,7 +56,7 @@ const { download } = useDownloadFileFromBase64({ source: base64 });
       </div>
       <div flex gap-3>
         <n-form-item :label="t('tools.svg-placeholder-generator.texts.label-font-size')" flex-1>
-          <n-input-number v-model:value="fontSize" :placeholder="t('tools.svg-placeholder-generator.texts.placeholder-font-size')" min="1" />
+          <n-input-number-i18n v-model:value="fontSize" :placeholder="t('tools.svg-placeholder-generator.texts.placeholder-font-size')" min="1" />
         </n-form-item>
 
         <c-input-text

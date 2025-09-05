@@ -10,7 +10,7 @@ import type {
 import qrcodeConsole from 'qrcode-terminal-nooctal';
 import { useQRCodeStyling } from './useQRCode';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
-import { useQueryParamOrStorage } from '@/composable/queryParams';
+import { useQueryParam, useQueryParamOrStorage } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
@@ -52,7 +52,7 @@ const dotTypes = ['dots',
 const cornersDotTypes = ['dot', 'square', 'heart'];
 const cornersSquareTypes = ['dot', 'square', 'extra-rounded'];
 
-const text = ref('https://sharevb-it-tools.vercel.app');
+const text = useQueryParam({ tool: 'qr-code-gen', name: 'text', defaultValue: 'https://sharevb-it-tools.vercel.app' });
 const { qrcode } = useQRCodeStyling({
   text,
   color: { background, foreground },
@@ -84,7 +84,7 @@ const qrcodeTerminal = computedAsync(() => {
   });
 });
 
-const filename = ref('qr-code');
+const filename = useQueryParam({ tool: 'qr-code-gen', name: 'file', defaultValue: 'qr-code' });
 const extension = computed(() => {
   // Explicitly access the reactive value
   const type = outputType.value;
@@ -167,10 +167,10 @@ async function copyQRCode() {
             <n-color-picker v-model:value="background" :modes="['hex']" />
           </n-form-item>
           <n-form-item :label="t('tools.qr-code-generator.texts.label-width')">
-            <n-input-number v-model:value="width" :min="0" />
+            <n-input-number-i18n v-model:value="width" :min="0" />
           </n-form-item>
           <n-form-item :label="t('tools.qr-code-generator.texts.label-margin')">
-            <n-input-number v-model:value="margin" :min="0" />
+            <n-input-number-i18n v-model:value="margin" :min="0" />
           </n-form-item>
           <c-select
             v-model:value="errorCorrectionLevelSelectValue"
@@ -195,10 +195,10 @@ async function copyQRCode() {
 
           <n-form label-width="130" label-placement="left" mt-3>
             <n-form-item :label="t('tools.qr-code-generator.texts.label-size')">
-              <n-input-number v-model:value="imageSize" :min="0" step="0.1" />
+              <n-input-number-i18n v-model:value="imageSize" :min="0" step="0.1" />
             </n-form-item>
             <n-form-item :label="t('tools.qr-code-generator.texts.label-margin')">
-              <n-input-number v-model:value="imageMargin" :min="0" />
+              <n-input-number-i18n v-model:value="imageMargin" :min="0" />
             </n-form-item>
           </n-form>
         </c-card>

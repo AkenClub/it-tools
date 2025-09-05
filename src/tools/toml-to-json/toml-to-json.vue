@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { parse as parseToml } from 'iarna-toml-esm';
+import { parse as parseToml } from 'smol-toml';
 import { withDefaultOnError } from '../../utils/defaults';
 import { isValidToml } from './toml.services';
 import type { UseValidationRule } from '@/composable/validation';
@@ -19,9 +19,9 @@ const rules: UseValidationRule<string>[] = [
 
 <template>
   <format-transformer
-    :input-label="t('tools.toml-to-json.texts.input-label-your-toml')"
-    :input-placeholder="t('tools.toml-to-json.texts.input-placeholder-paste-your-toml-here')"
-    :output-label="t('tools.toml-to-json.texts.output-label-json-from-your-toml')"
+    :input-:label="t('tools.toml-to-json.texts.label-t-tools-toml-to-json-texts-input-label-your-toml')"
+    :input-:placeholder="t('tools.toml-to-json.texts.placeholder-t-tools-toml-to-json-texts-input-placeholder-paste-your-toml-here')"
+    :output-:label="t('tools.toml-to-json.texts.label-t-tools-toml-to-json-texts-output-label-json-from-your-toml')"
     output-language="json"
     :input-validation-rules="rules"
     :transformer="transformer"

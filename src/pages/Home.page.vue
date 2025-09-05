@@ -22,8 +22,42 @@ const homeCustomMarkdown = computedAsync(async () => {
 });
 
 const toolStore = useToolStore();
+const desc = 'Collection of handy online tools for developers, with great UX. IT Tools is a free and open-source collection of handy online tools for developers & people working in IT.';
+const title = 'IT Tools - Handy online tools for developers';
 
-useHead({ title: 'IT Tools - Handy online tools for developers' });
+useHead({
+  title,
+  meta: [
+    {
+      itemprop: 'name',
+      content: title,
+    },
+    {
+      property: 'og:title',
+      content: title,
+    },
+    {
+      property: 'twitter:title',
+      content: title,
+    },
+    {
+      name: 'description',
+      content: desc,
+    },
+    {
+      itemprop: 'description',
+      content: desc,
+    },
+    {
+      property: 'og:description',
+      content: desc,
+    },
+    {
+      property: 'twitter:description',
+      content: desc,
+    },
+  ],
+});
 const { t } = useI18n();
 
 const favoriteTools = computed(() => toolStore.favoriteTools);
@@ -128,13 +162,6 @@ onUnmounted(() => {
               <div class="rounded-full bg-#eeeeee px-10px py-2px text-xs text-black dark:bg-#333333 dark:text-white">
                 Sponsor
               </div>
-            </div>
-
-            <div class="my-5px flex items-baseline gap-4 text-balance text-lg text-black dark:text-white">
-              Generate PDFs from HTML with Renderize API
-            </div>
-            <div class="text-neutral-500 dark:text-neutral-400">
-              Automate your document generation with our fast, developer-friendly API. Start with a free forever plan.
             </div>
           </c-card>
         </a>

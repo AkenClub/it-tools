@@ -6,13 +6,13 @@ import { withDefaultOnError } from '@/utils/defaults';
 import { useCopy } from '@/composable/copy';
 import { useQueryParam } from '@/composable/queryParams';
 
-const count = useQueryParam({ name: 'count', defaultValue: 1 });
-const length = useQueryParam({ name: 'length', defaultValue: 21 });
-const withUppercase = useQueryParam({ name: 'uppercase', defaultValue: true });
-const withLowercase = useQueryParam({ name: 'lowercase', defaultValue: true });
-const withNumbers = useQueryParam({ name: 'numbers', defaultValue: true });
-const withSymbols = useQueryParam({ name: 'symbols', defaultValue: true });
-const excludeLookalikes = useQueryParam({ name: 'no-lookalikes', defaultValue: false });
+const count = useQueryParam({ tool: 'nanoid-gen', name: 'count', defaultValue: 1 });
+const length = useQueryParam({ tool: 'nanoid-gen', name: 'length', defaultValue: 21 });
+const withUppercase = useQueryParam({ tool: 'nanoid-gen', name: 'uppercase', defaultValue: true });
+const withLowercase = useQueryParam({ tool: 'nanoid-gen', name: 'lowercase', defaultValue: true });
+const withNumbers = useQueryParam({ tool: 'nanoid-gen', name: 'numbers', defaultValue: true });
+const withSymbols = useQueryParam({ tool: 'nanoid-gen', name: 'symbols', defaultValue: true });
+const excludeLookalikes = useQueryParam({ tool: 'nanoid-gen', name: 'no-lookalikes', defaultValue: false });
 
 const { t } = useI18n();
 
@@ -107,11 +107,11 @@ const { copy } = useCopy({ source: nanoIds, text: t('tools.nanoid-generator.text
 
     <div mb-2 flex items-center>
       <span w-100px>{{ t('tools.nanoid-generator.length') }}</span>
-      <n-input-number v-model:value="length" flex-1 :min="1" :max="100" :placeholder="t('tools.nanoid-generator.texts.placeholder-nanoid-length')" />
+      <n-input-number-i18n v-model:value="length" flex-1 :min="1" :max="100" :placeholder="t('tools.nanoid-generator.texts.placeholder-nanoid-length')" />
     </div>
     <div mb-2 flex items-center>
       <span w-100px>{{ t('tools.nanoid-generator.quantity') }}</span>
-      <n-input-number v-model:value="count" flex-1 :min="1" :max="50" :placeholder="t('tools.nanoid-generator.texts.placeholder-nanoids-quantity')" />
+      <n-input-number-i18n v-model:value="count" flex-1 :min="1" :max="50" :placeholder="t('tools.nanoid-generator.texts.placeholder-nanoids-quantity')" />
     </div>
 
     <c-input-text

@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n';
 import InputCopyable from '../../components/InputCopyable.vue';
 import type { Units } from './hdd-calculator.service';
 import { getRealSize } from './hdd-calculator.service';
+import { useQueryParam } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
@@ -21,14 +22,14 @@ const bin_units = [
   { value: 'pb', label: t('tools.hdd-calculator.texts.label-pib') },
 ];
 
-const claimedCapacity = ref(1);
-const claimedUnit = ref('tb');
+const claimedCapacity = useQueryParam({ tool: 'hdd-calc', name: 'capacity', defaultValue: 1 });
+const claimedUnit = useQueryParam({ tool: 'hdd-calc', name: 'unit', defaultValue: 'tb' });
 </script>
 
 <template>
   <div>
     <n-form-item :label="t('tools.hdd-calculator.texts.label-claimed-capacity')">
-      <n-input-number v-model:value="claimedCapacity" :min="1" />
+      <n-input-number-i18n v-model:value="claimedCapacity" :min="1" />
     </n-form-item>
     <c-select
       v-model:value="claimedUnit"

@@ -10,11 +10,6 @@ declare module '*.md' {
   export default Component;
 }
 
-declare module 'iarna-toml-esm' {
-  export const parse: (toml: string) => any;
-  export const stringify: (obj: any) => string;
-}
-
 declare module 'emojilib' {
   const lib: Record<string, string[]>;
   export default lib;
@@ -51,4 +46,12 @@ interface BigInt {
 interface JSON {
   parseBigInt: (jsonStr: string, options?: { minDigits?: number; fallbackToString?: boolean; }) => any;
   rawJSON(value: string): any;
+}
+
+interface Navigator {
+  gpu?: any;
+}
+
+interface FontFaceSet {
+  add(fontFace: FontFace)
 }

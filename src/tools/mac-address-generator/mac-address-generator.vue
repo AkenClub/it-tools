@@ -5,11 +5,12 @@ import { generateRandomMacAddress } from './mac-adress-generator.models';
 import { computedRefreshable } from '@/composable/computedRefreshable';
 import { useCopy } from '@/composable/copy';
 import { usePartialMacAddressValidation } from '@/utils/macAddress';
+import { useQueryParamOrStorage } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
-const amount = useStorage('mac-address-generator-amount', 1);
-const macAddressPrefix = useStorage('mac-address-generator-prefix', '64:16:7F');
+const amount = useQueryParamOrStorage({ name: 'amount', storageName: 'mac-address-generator:amount', defaultValue: 1 });
+const macAddressPrefix = useQueryParamOrStorage({ name: 'prefix', storageName: 'mac-address-generator:prefix', defaultValue: '64:16:7F' });
 
 const prefixValidation = usePartialMacAddressValidation(macAddressPrefix);
 
@@ -37,7 +38,7 @@ const separators = [
     value: '',
   },
 ];
-const separator = useStorage('mac-address-generator-separator', separators[0].value);
+const separator = useQueryParamOrStorage({ name: 'sep', storageName: 'mac-address-generator:separator', defaultValue: separators[0].value });
 
 const [macAddresses, refreshMacAddresses] = computedRefreshable(() => {
   if (!prefixValidation.isValid) {
@@ -58,7 +59,7 @@ const { copy } = useCopy({ source: macAddresses, text: t('tools.mac-address-gene
   <div flex flex-col justify-center gap-2>
     <div flex items-center>
       <label w-150px pr-12px text-right>{{ t('tools.mac-address-generator.texts.tag-quantity') }}</label>
-      <n-input-number v-model:value="amount" min="1" max="100" flex-1 />
+      <n-input-number-i18n v-model:value="amount" min="1" max="100" flex-1 />
     </div>
 
     <c-input-text

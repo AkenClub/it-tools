@@ -4,7 +4,7 @@ import bwipjs, { type RenderOptions } from 'bwip-js/browser';
 import { Base64 } from 'js-base64';
 import formats from './barcode.formats.json';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
-import { useQueryParamOrStorage } from '@/composable/queryParams';
+import { useQueryParam, useQueryParamOrStorage } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
@@ -15,7 +15,7 @@ const height = useQueryParamOrStorage({ name: 'height', storageName: 'barcode-ge
 const margin = useQueryParamOrStorage({ name: 'margin', storageName: 'barcode-gen:margin', defaultValue: 10 });
 const format = useQueryParamOrStorage({ name: 'format', storageName: 'barcode-gen:format', defaultValue: 'code128' });
 const displayValue = useQueryParamOrStorage({ name: 'display', storageName: 'barcode-gen:display', defaultValue: true });
-const value = ref('123456789');
+const value = useQueryParam({ tool: 'barcode-gen', name: 'text', defaultValue: '123456789' });
 const barcodeCanvas = ref<HTMLCanvasElement>();
 
 const options = computed<RenderOptions>(() => ({
@@ -96,13 +96,13 @@ const { download: downloadSVG } = useDownloadFileFromBase64({ source: barcodeSVG
             <n-color-picker v-model:value="background" :modes="['hex']" :show-alpha="false" />
           </n-form-item>
           <n-form-item :label="t('tools.barcode-generator.texts.label-scale')">
-            <n-input-number v-model:value="scale" :min="0" />
+            <n-input-number-i18n v-model:value="scale" :min="0" />
           </n-form-item>
           <n-form-item :label="t('tools.barcode-generator.texts.label-height-mm')">
-            <n-input-number v-model:value="height" :min="0" />
+            <n-input-number-i18n v-model:value="height" :min="0" />
           </n-form-item>
           <n-form-item :label="t('tools.barcode-generator.texts.label-margin')">
-            <n-input-number v-model:value="margin" :min="0" />
+            <n-input-number-i18n v-model:value="margin" :min="0" />
           </n-form-item>
           <n-form-item :label="t('tools.barcode-generator.texts.label-display-text')">
             <n-checkbox v-model:checked="displayValue" />
