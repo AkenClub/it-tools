@@ -1,0 +1,1 @@
+import{o as e,m as o,n as t}from"./index-bd50fbe2.js";const n={viewBox:"0 0 24 24",width:"1.2em",height:"1.2em"},c=t("path",{fill:"currentColor",d:"M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7z"},null,-1),s=[c];function _(r,a){return e(),o("svg",n,s)}const l={name:"mdi-download",render:_};export{l as _};

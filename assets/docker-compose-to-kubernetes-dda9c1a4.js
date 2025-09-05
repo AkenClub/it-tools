@@ -1,0 +1,10 @@
+import{d as x,aa as h,q as O,c as n,o as r,m as s,e as t,w as p,n as _,f as e,i as N,F as C,D as w,O as T,aX as Y,H as B}from"./index-bd50fbe2.js";import{_ as D}from"./c-monaco-editor.vue_vue_type_script_setup_true_lang-0056517b.js";import{c as I}from"./index-3151af53.js";import{T as R}from"./TextareaCopyable-307e7842.js";import{N as S}from"./Alert-8c9210e3.js";import{_ as V}from"./Divider-cc686e1f.js";import"./toggleHighContrast-9bc0fc8d.js";import"./index-a6f01dde.js";import"./index-694fd6b5.js";import"./index-41dcede5.js";import"./public-api-9ecb9c72.js";import"./base64-11d7ac16.js";import"./downloadBase64-2afed79b.js";import"./index-59cddc9a.js";import"./index-dbbd6507.js";import"./Copy-e5e09d26.js";import"./Scrollbar-bc5b5dc5.js";const A={relative:"","w-full":""},E={key:0},te=x({__name:"docker-compose-to-kubernetes",setup(F){const{t:l}=h(),o=O(`version: '3.3'
+services:
+    nginx:
+        ports:
+            - '80:80'
+        volumes:
+            - '/var/run/docker.sock:/tmp/docker.sock:ro'
+        restart: always
+        image: nginx`),m=n(()=>{try{return{kubeYaml:I(o.value.trim()),errors:[]}}catch(i){return{kubeYaml:"#see error messages",errors:i.toString().split(`
+`)}}}),c=n(()=>m.value.errors),d=n(()=>m.value.kubeYaml),f={automaticLayout:!0,formatOnType:!0,formatOnPaste:!0};return(i,u)=>{const k=D,v=Y,g=S,y=V;return r(),s("div",null,[t(v,{label:e(l)("tools.docker-compose-to-kubernetes.texts.label-paste-your-docker-compose-file-content")},{default:p(()=>[_("div",A,[t(k,{value:e(o),"onUpdate:value":u[0]||(u[0]=a=>N(o)?o.value=a:null),theme:"vs-dark",language:"yaml",height:"250px",options:f},null,8,["value"])])]),_:1},8,["label"]),e(c).length>0?(r(),s("div",E,[t(g,{title:e(l)("tools.docker-compose-to-kubernetes.texts.title-the-following-errors-occured"),type:"error","mt-5":""},{default:p(()=>[_("ul",null,[(r(!0),s(C,null,w(e(c),(a,b)=>(r(),s("li",{key:b},B(a),1))),128))])]),_:1},8,["title"])])):T("",!0),t(y),t(R,{value:e(d),language:"yaml","copy-placement":"outside"},null,8,["value"])])}}});export{te as default};

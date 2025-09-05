@@ -1,0 +1,1 @@
+import{bm as b}from"./index-bd50fbe2.js";function m(n){var l=n==null?0:n.length;return l?n[l-1]:void 0}function d(n,l){return n<l}function g(n,l,f){for(var i=-1,o=n.length;++i<o;){var t=n[i],e=l(t);if(e!=null&&(s===void 0?e===e&&!b(e):f(e,s)))var s=e,a=t}return a}export{d as a,g as b,m as l};

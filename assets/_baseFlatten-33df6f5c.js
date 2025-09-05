@@ -1,0 +1,1 @@
+import{bU as m,V as e,Y as h,bV as t}from"./index-bd50fbe2.js";function F(){}var r=m?m.isConcatSpreadable:void 0;function y(n){return e(n)||h(n)||!!(r&&n&&n[r])}function x(n,i,a,s,o){var f=-1,g=n.length;for(a||(a=y),o||(o=[]);++f<g;){var b=n[f];i>0&&a(b)?i>1?x(b,i-1,a,s,o):t(o,b):s||(o[o.length]=b)}return o}export{x as b,F as n};
