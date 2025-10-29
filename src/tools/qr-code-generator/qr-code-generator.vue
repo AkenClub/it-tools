@@ -74,7 +74,7 @@ const qrcodeTerminal = computedAsync(() => {
   return new Promise<string>((resolve, _reject) => {
     try {
       qrcodeConsole.setErrorLevel(level);
-      qrcodeConsole.generate(textValue, { small }, (qrcode: string) => {
+      qrcodeConsole.generate(textValue.trim(), { small }, (qrcode: string) => {
         resolve(qrcode);
       });
     }
@@ -154,6 +154,7 @@ async function copyQRCode() {
           label-position="left"
           label-width="130px"
           label-align="right"
+          multiline
           :label="t('tools.qr-code-generator.texts.label-text')"
           rows="1"
           :placeholder="t('tools.qr-code-generator.texts.placeholder-your-link-or-text')"
